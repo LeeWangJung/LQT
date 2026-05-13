@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OUR MEMORIES ✨</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    overflow:hidden;
+    font-family:sans-serif;
+    background:
+    radial-gradient(circle at top,#3b1d5a 0%,#0d0d18 60%);
+}
+
+/* STAR BACKGROUND */
+
+canvas{
+    position:fixed;
+    inset:0;
+    z-index:0;
+}
+
+/* TITLE */
+
+.title{
+
+    position:absolute;
+
+    top:30px;
+
+    width:100%;
+
+    text-align:center;
+
+    color:white;
+
+    font-size:42px;
+
+    letter-spacing:5px;
+
+    text-shadow:
+    0 0 10px #ff99cc,
+    0 0 30px #ff99cc;
+
+    z-index:5;
+}
+
+/* LIGHT LINE */
+
+.light-line{
+
+    position:absolute;
+
+    top:110px;
+
+    width:100%;
+
+    height:2px;
+
+    background:
+    rgba(255,255,255,0.15);
+
+    z-index:1;
+}
+
+/* LIGHTS */
+
+.light{
+
+    position:absolute;
+
+    width:12px;
+    height:12px;
+
+    border-radius:50%;
+
+    background:#ffb6d9;
+
+    box-shadow:
+    0 0 10px #ffb6d9,
+    0 0 25px #ffb6d9,
+    0 0 45px #ffd6eb;
+
+    animation:
+    blink 2s infinite alternate;
+}
+
+@keyframes blink{
+
+    from{
+        opacity:0.4;
+    }
+
+    to{
+        opacity:1;
+    }
+
+}
+
+/* GALLERY */
+
+.gallery{
+
+    position:relative;
+
+    width:100%;
+    height:100vh;
+
+    z-index:2;
+}
+
+/* PHOTO */
+
+.photo{
+
+    position:absolute;
+
+    width:220px;
+
+    background:white;
+
+    padding:
+    12px
+    12px
+    40px;
+
+    border-radius:6px;
+
+    box-shadow:
+    0 8px 20px rgba(0,0,0,0.35);
+
+    transition:
+    transform 0.5s,
+    box-shadow 0.5s;
+
+    animation:
+    float 4s ease-in-out infinite;
+
+    cursor:pointer;
+
+    will-change:transform;
+
+    transform:translateZ(0);
+
+    backface-visibility:hidden;
+}
+
+/* IMAGE */
+
+.photo img{
+
+    width:100%;
+    height:240px;
+
+    object-fit:cover;
+
+    border-radius:3px;
+}
+
+/* STRING */
+
+.photo::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:2px;
+    height:70px;
+
+    background:#ddd;
+
+    top:-70px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+}
+
+/* PIN */
+
+.pin{
+
+    position:absolute;
+
+    top:-12px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    width:18px;
+    height:18px;
+
+    border-radius:50%;
+
+    background:#ff7aa2;
+
+    box-shadow:
+    0 0 10px #ff7aa2;
+}
+
+/* CAPTION */
+
+.caption{
+
+    text-align:center;
+
+    margin-top:10px;
+
+    color:#444;
+
+    font-size:15px;
+
+    letter-spacing:1px;
+}
+
+/* FLOAT */
+
+@keyframes float{
+
+    0%{
+        transform:translateY(0px);
+    }
+
+    50%{
+        transform:translateY(-10px);
+    }
+
+    100%{
+        transform:translateY(0px);
+    }
+
+}
+
+/* HOVER */
+
+.photo:hover{
+
+    transform:
+    scale(1.05) !important;
+
+    z-index:50;
+}
+
+/* ACTIVE PHOTO */
+
+.photo.active{
+
+    position:fixed !important;
+
+    top:50% !important;
+    left:50% !important;
+
+    transform:
+    translate(-50%,-50%)
+    scale(1.25)
+    rotate(0deg) !important;
+
+    z-index:999;
+
+    animation:none;
+
+    box-shadow:
+    0 0 40px rgba(255,180,220,0.8),
+    0 0 80px rgba(255,180,220,0.6);
+}
+
+/* INTRO */
+
+#intro-screen{
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+    radial-gradient(circle,#151020 0%,black 100%);
+
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+
+    z-index:99999;
+
+    transition:1s;
+}
+
+/* INTRO TEXT */
+
+#intro-text{
+
+    color:white;
+
+    font-size:65px;
+
+    letter-spacing:6px;
+
+    text-shadow:
+    0 0 10px #ff99cc,
+    0 0 30px #ff99cc,
+    0 0 60px #ff99cc;
+
+    animation:
+    introBlink 1.2s infinite alternate;
+}
+
+/* INTRO BLINK */
+
+@keyframes introBlink{
+
+    from{
+        opacity:0.4;
+        transform:scale(1);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1.05);
+    }
+
+}
+
+/* MOBILE */
+
+@media (max-width:768px){
+
+    .title{
+
+        font-size:24px;
+
+        top:20px;
+    }
+
+    .photo{
+
+        width:140px;
+
+        padding:
+        8px
+        8px
+        25px;
+    }
+
+    .photo img{
+
+        height:160px;
+    }
+
+    .caption{
+
+        font-size:11px;
+    }
+
+    .photo::before{
+
+        height:45px;
+
+        top:-45px;
+    }
+
+    #intro-text{
+
+        font-size:32px;
+
+        text-align:center;
+
+        padding:20px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- INTRO -->
+
+<div id="intro-screen">
+
+    <div id="intro-text">
+        CLICK TO ENTER ✨
+    </div>
+
+</div>
+
+<!-- TITLE -->
+
+<div class="title">
+    OUR MEMORIES ✨
+</div>
+
+<!-- STARS -->
+
+<canvas id="stars"></canvas>
+
+<!-- LIGHT LINE -->
+
+<div class="light-line"></div>
+
+<!-- LIGHTS -->
+
+<div class="light" style="top:104px; left:10%; animation-delay:0s;"></div>
+<div class="light" style="top:104px; left:20%; animation-delay:0.5s;"></div>
+<div class="light" style="top:104px; left:30%; animation-delay:1s;"></div>
+<div class="light" style="top:104px; left:40%; animation-delay:1.5s;"></div>
+<div class="light" style="top:104px; left:50%; animation-delay:2s;"></div>
+<div class="light" style="top:104px; left:60%; animation-delay:1s;"></div>
+<div class="light" style="top:104px; left:70%; animation-delay:0.3s;"></div>
+<div class="light" style="top:104px; left:80%; animation-delay:1.8s;"></div>
+<div class="light" style="top:104px; left:90%; animation-delay:0.8s;"></div>
+
+<!-- GALLERY -->
+
+<div class="gallery">
+
+    <!-- PHOTO 1 -->
+
+    <div class="photo"
+    style="
+    top:180px;
+    left:5%;
+    transform:rotate(-8deg);
+    ">
+
+        <div class="pin"></div>
+
+        <img src="1.jpg">
+
+        <div class="caption">
+            Beautiful ✨
+        </div>
+
+    </div>
+
+    <!-- PHOTO 2 -->
+
+    <div class="photo"
+    style="
+    top:260px;
+    left:28%;
+    transform:rotate(5deg);
+    ">
+
+        <div class="pin"></div>
+
+        <img src="2.jpg">
+
+        <div class="caption">
+            Memories 🌸
+        </div>
+
+    </div>
+
+    <!-- PHOTO 3 -->
+
+    <div class="photo"
+    style="
+    top:170px;
+    right:28%;
+    transform:rotate(-6deg);
+    ">
+
+        <div class="pin"></div>
+
+        <img src="3.jpg">
+
+        <div class="caption">
+            Smile 💖
+        </div>
+
+    </div>
+
+    <!-- PHOTO 4 -->
+
+    <div class="photo"
+    style="
+    top:270px;
+    right:5%;
+    transform:rotate(7deg);
+    ">
+
+        <div class="pin"></div>
+
+        <img src="4.jpg">
+
+        <div class="caption">
+            Forever ✨
+        </div>
+
+    </div>
+
+</div>
+
+<!-- MUSIC -->
+
+<audio id="music" loop playsinline>
+    <source src="1.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+/* MOBILE */
+
+const isMobile =
+window.innerWidth < 768;
+
+/* INTRO */
+
+const intro =
+document.getElementById(
+"intro-screen"
+);
+
+intro.addEventListener(
+"click",
+()=>{
+
+    intro.style.opacity = "0";
+
+    setTimeout(()=>{
+
+        intro.style.display =
+        "none";
+
+    },1000);
+
+    /* PLAY MUSIC */
+
+    const music =
+    document.getElementById(
+    "music"
+    );
+
+    music.volume = 1;
+
+    music.play().catch(()=>{});
+
+},
+{ once:true });
+
+/* PHOTO ZOOM */
+
+const photos =
+document.querySelectorAll(".photo");
+
+photos.forEach(photo=>{
+
+    photo.addEventListener(
+    "click",
+    (e)=>{
+
+        e.stopPropagation();
+
+        if(photo.classList.contains("active")){
+
+            photo.classList.remove("active");
+
+        }else{
+
+            photos.forEach(p=>{
+
+                p.classList.remove("active");
+
+            });
+
+            photo.classList.add("active");
+
+        }
+
+    });
+
+});
+
+/* CLICK OUTSIDE */
+
+window.addEventListener(
+"click",
+()=>{
+
+    photos.forEach(photo=>{
+
+        photo.classList.remove("active");
+
+    });
+
+});
+
+/* STAR BACKGROUND */
+
+const canvas =
+document.getElementById("stars");
+
+const ctx =
+canvas.getContext("2d", {
+    alpha:false
+});
+
+canvas.width =
+innerWidth;
+
+canvas.height =
+innerHeight;
+
+/* FPS */
+
+let lastTime = 0;
+
+const fps = 60;
+
+const interval =
+1000 / fps;
+
+/* STAR COUNT */
+
+const starCount =
+isMobile ? 45 : 140;
+
+const stars = [];
+
+for(let i=0;i<starCount;i++){
+
+    stars.push({
+
+        x:
+        Math.random()*canvas.width,
+
+        y:
+        Math.random()*canvas.height,
+
+        r:
+        Math.random()*1.5 + 0.3,
+
+        s:
+        Math.random()*1.2 + 0.4
+
+    });
+
+}
+
+/* ANIMATION */
+
+function animateStars(time){
+
+    requestAnimationFrame(
+    animateStars
+    );
+
+    const delta =
+    time - lastTime;
+
+    if(delta < interval)
+    return;
+
+    lastTime =
+    time - (delta % interval);
+
+    ctx.clearRect(
+    0,
+    0,
+    canvas.width,
+    canvas.height
+    );
+
+    for(let i=0;i<stars.length;i++){
+
+        const star =
+        stars[i];
+
+        ctx.beginPath();
+
+        ctx.arc(
+
+            star.x,
+            star.y,
+            star.r,
+
+            0,
+            Math.PI * 2
+
+        );
+
+        ctx.fillStyle =
+        "white";
+
+        ctx.fill();
+
+        star.y += star.s;
+
+        if(star.y >
+        canvas.height){
+
+            star.y = 0;
+
+            star.x =
+            Math.random() *
+            canvas.width;
+
+        }
+
+    }
+
+}
+
+requestAnimationFrame(
+animateStars
+);
+
+/* RESIZE */
+
+window.addEventListener(
+"resize",
+()=>{
+
+    canvas.width =
+    innerWidth;
+
+    canvas.height =
+    innerHeight;
+
+});
+
+</script>
+
+</body>
+</html>
