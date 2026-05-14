@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OUR MEMORIES ✨</title>
+<title>Our Memories ✨</title>
 
 <style>
 
@@ -16,16 +16,79 @@
 body{
     overflow:hidden;
     font-family:sans-serif;
+    height:100vh;
+
     background:
-    radial-gradient(circle at top,#3b1d5a 0%,#0d0d18 60%);
+    url("8.jpg")
+    center center / cover no-repeat fixed;
+
+    position:relative;
 }
 
-/* STAR BACKGROUND */
+/* DARK OVERLAY */
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+
+    background:
+    rgba(0,0,0,0.38);
+
+    z-index:0;
+}
+
+/* STARS */
 
 canvas{
     position:fixed;
     inset:0;
-    z-index:0;
+    z-index:1;
+}
+
+/* INTRO */
+
+#intro{
+    position:fixed;
+    inset:0;
+
+    background:black;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    z-index:99999;
+
+    transition:1s;
+}
+
+#intro h1{
+    color:white;
+
+    font-size:55px;
+
+    letter-spacing:6px;
+
+    text-shadow:
+    0 0 15px #ff99cc,
+    0 0 40px #ff99cc;
+
+    animation:blink 1s infinite alternate;
+}
+
+@keyframes blink{
+
+    from{
+        opacity:0.4;
+        transform:scale(1);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1.06);
+    }
+
 }
 
 /* TITLE */
@@ -34,7 +97,7 @@ canvas{
 
     position:absolute;
 
-    top:30px;
+    top:28px;
 
     width:100%;
 
@@ -42,79 +105,95 @@ canvas{
 
     color:white;
 
-    font-size:42px;
+    font-size:40px;
 
-    letter-spacing:5px;
+    letter-spacing:6px;
+
+    z-index:10;
 
     text-shadow:
     0 0 10px #ff99cc,
-    0 0 30px #ff99cc;
-
-    z-index:5;
+    0 0 35px #ff99cc;
 }
 
-/* LIGHT LINE */
+/* WALL */
 
-.light-line{
-
-    position:absolute;
-
-    top:110px;
-
-    width:100%;
-
-    height:2px;
-
-    background:
-    rgba(255,255,255,0.15);
-
-    z-index:1;
-}
-
-/* LIGHTS */
-
-.light{
-
-    position:absolute;
-
-    width:12px;
-    height:12px;
-
-    border-radius:50%;
-
-    background:#ffb6d9;
-
-    box-shadow:
-    0 0 10px #ffb6d9,
-    0 0 25px #ffb6d9,
-    0 0 45px #ffd6eb;
-
-    animation:
-    blink 2s infinite alternate;
-}
-
-@keyframes blink{
-
-    from{
-        opacity:0.4;
-    }
-
-    to{
-        opacity:1;
-    }
-
-}
-
-/* GALLERY */
-
-.gallery{
-
-    position:relative;
+.wall{
 
     width:100%;
     height:100vh;
 
-    z-index:2;
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+
+    position:relative;
+
+    z-index:5;
+}
+
+/* GRID */
+
+.grid{
+
+    position:relative;
+
+    width:820px;
+    height:470px;
+
+    border:
+    2px solid rgba(255,255,255,0.25);
+
+    border-radius:8px;
+
+    overflow:visible;
+
+    isolation:isolate;
+
+    background:
+
+    linear-gradient(
+    rgba(255,255,255,0.16) 2px,
+    transparent 2px),
+
+    linear-gradient(
+    90deg,
+    rgba(255,255,255,0.16) 2px,
+    transparent 2px);
+
+    background-size:
+    60px 60px;
+
+    background-color:
+    rgba(255,255,255,0.05);
+
+    backdrop-filter:
+    blur(7px);
+
+    box-shadow:
+    0 0 30px rgba(255,255,255,0.08);
+}
+
+/* GRID IMAGE */
+
+.grid::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+    url("6.jpg")
+    center/cover no-repeat;
+
+    opacity:0.24;
+
+    z-index:1;
+
+    pointer-events:none;
 }
 
 /* PHOTO */
@@ -123,66 +202,55 @@ canvas{
 
     position:absolute;
 
-    width:220px;
+    width:170px;
 
     background:white;
 
     padding:
-    12px
-    12px
-    40px;
+    8px
+    8px
+    30px;
 
-    border-radius:6px;
+    border-radius:4px;
 
     box-shadow:
-    0 8px 20px rgba(0,0,0,0.35);
+    0 10px 20px rgba(0,0,0,0.35);
+
+    cursor:pointer;
 
     transition:
     transform 0.4s,
     box-shadow 0.4s;
 
-    animation:
-    float 4s ease-in-out infinite;
-
-    cursor:pointer;
-
-    will-change:transform;
-
-    transform:translateZ(0);
-
-    backface-visibility:hidden;
+    z-index:5;
 }
 
-/* IMAGE */
+/* PHOTO IMG */
 
 .photo img{
 
     width:100%;
-    height:240px;
+
+    height:170px;
 
     object-fit:cover;
 
-    border-radius:3px;
+    border-radius:2px;
 }
 
-/* STRING */
+/* TEXT */
 
-.photo::before{
+.caption{
 
-    content:"";
+    margin-top:10px;
 
-    position:absolute;
+    text-align:center;
 
-    width:2px;
-    height:70px;
+    color:#444;
 
-    background:#ddd;
+    font-size:14px;
 
-    top:-70px;
-
-    left:50%;
-
-    transform:translateX(-50%);
+    letter-spacing:1px;
 }
 
 /* PIN */
@@ -191,54 +259,72 @@ canvas{
 
     position:absolute;
 
-    top:-12px;
+    width:16px;
+    height:16px;
 
+    border-radius:50%;
+
+    background:#ff6ea8;
+
+    top:-10px;
     left:50%;
 
     transform:translateX(-50%);
 
-    width:18px;
-    height:18px;
-
-    border-radius:50%;
-
-    background:#ff7aa2;
-
     box-shadow:
-    0 0 10px #ff7aa2;
+    0 0 12px #ff6ea8;
 }
 
-/* CAPTION */
+/* POSITIONS */
 
-.caption{
+.p1{
 
-    text-align:center;
+    top:25px;
+    left:60px;
 
-    margin-top:10px;
+    transform:rotate(-8deg);
 
-    color:#444;
-
-    font-size:15px;
-
-    letter-spacing:1px;
+    z-index:3;
 }
 
-/* FLOAT */
+.p2{
 
-@keyframes float{
+    top:40px;
+    left:320px;
 
-    0%{
-        transform:translateY(0px);
-    }
+    transform:rotate(5deg);
 
-    50%{
-        transform:translateY(-10px);
-    }
+    z-index:6;
+}
 
-    100%{
-        transform:translateY(0px);
-    }
+.p3{
 
+    top:250px;
+    left:180px;
+
+    transform:rotate(-5deg);
+
+    z-index:7;
+}
+
+.p4{
+
+    top:205px;
+    left:500px;
+
+    transform:rotate(7deg);
+
+    z-index:4;
+}
+
+.p5{
+
+    top:85px;
+    left:610px;
+
+    transform:rotate(-7deg);
+
+    z-index:8;
 }
 
 /* HOVER */
@@ -246,12 +332,16 @@ canvas{
 .photo:hover{
 
     transform:
-    scale(1.05) !important;
+    scale(1.05)
+    rotate(0deg);
 
     z-index:50;
+
+    box-shadow:
+    0 0 35px rgba(255,180,220,0.8);
 }
 
-/* ACTIVE PHOTO */
+/* ACTIVE */
 
 .photo.active{
 
@@ -262,119 +352,78 @@ canvas{
 
     transform:
     translate(-50%,-50%)
-    scale(1.2)
+    scale(1.45)
     rotate(0deg) !important;
 
-    z-index:100;
-
-    animation:none;
+    z-index:9999;
 
     box-shadow:
-    0 0 40px rgba(255,180,220,0.8),
-    0 0 80px rgba(255,180,220,0.6);
-}
-
-/* INTRO */
-
-#intro-screen{
-
-    position:fixed;
-
-    inset:0;
-
-    background:
-    radial-gradient(circle,#151020 0%,black 100%);
-
-    display:flex;
-
-    justify-content:center;
-    align-items:center;
-
-    z-index:99999;
-
-    transition:1s;
-}
-
-/* INTRO TEXT */
-
-#intro-text{
-
-    color:white;
-
-    font-size:65px;
-
-    letter-spacing:6px;
-
-    text-shadow:
-    0 0 10px #ff99cc,
-    0 0 30px #ff99cc,
-    0 0 60px #ff99cc;
-
-    animation:
-    introBlink 1.2s infinite alternate;
-}
-
-/* INTRO BLINK */
-
-@keyframes introBlink{
-
-    from{
-        opacity:0.4;
-        transform:scale(1);
-    }
-
-    to{
-        opacity:1;
-        transform:scale(1.05);
-    }
-
+    0 0 40px rgba(255,180,220,0.9),
+    0 0 90px rgba(255,180,220,0.5);
 }
 
 /* MOBILE */
 
-@media (max-width:768px){
+@media(max-width:768px){
 
     .title{
-
         font-size:24px;
+    }
 
-        top:20px;
+    #intro h1{
+        font-size:34px;
+    }
+
+    .grid{
+
+        width:340px;
+        height:540px;
+
+        background-size:
+        40px 40px;
     }
 
     .photo{
 
-        width:140px;
+        width:110px;
 
         padding:
-        8px
-        8px
-        25px;
+        6px
+        6px
+        20px;
     }
 
     .photo img{
-
-        height:160px;
+        height:110px;
     }
 
     .caption{
-
-        font-size:11px;
+        font-size:10px;
     }
 
-    .photo::before{
-
-        height:45px;
-
-        top:-45px;
+    .p1{
+        top:30px;
+        left:10px;
     }
 
-    #intro-text{
+    .p2{
+        top:40px;
+        left:170px;
+    }
 
-        font-size:32px;
+    .p3{
+        top:250px;
+        left:60px;
+    }
 
-        text-align:center;
+    .p4{
+        top:260px;
+        left:190px;
+    }
 
-        padding:20px;
+    .p5{
+        top:140px;
+        left:120px;
     }
 
 }
@@ -386,116 +435,108 @@ canvas{
 
 <!-- INTRO -->
 
-<div id="intro-screen">
+<div id="intro">
 
-    <div id="intro-text">
-        CLICK TO ENTER ✨
-    </div>
+    <h1>CLICK TO ENTER ✨</h1>
 
 </div>
 
 <!-- TITLE -->
 
 <div class="title">
+
     OUR MEMORIES ✨
+
 </div>
 
 <!-- STARS -->
 
 <canvas id="stars"></canvas>
 
-<!-- LIGHT LINE -->
+<!-- WALL -->
 
-<div class="light-line"></div>
+<div class="wall">
 
-<!-- LIGHTS -->
+    <div class="grid">
 
-<div class="light" style="top:104px; left:10%; animation-delay:0s;"></div>
-<div class="light" style="top:104px; left:20%; animation-delay:0.5s;"></div>
-<div class="light" style="top:104px; left:30%; animation-delay:1s;"></div>
-<div class="light" style="top:104px; left:40%; animation-delay:1.5s;"></div>
-<div class="light" style="top:104px; left:50%; animation-delay:2s;"></div>
-<div class="light" style="top:104px; left:60%; animation-delay:1s;"></div>
-<div class="light" style="top:104px; left:70%; animation-delay:0.3s;"></div>
-<div class="light" style="top:104px; left:80%; animation-delay:1.8s;"></div>
-<div class="light" style="top:104px; left:90%; animation-delay:0.8s;"></div>
+        <!-- PHOTO 1 -->
 
-<!-- GALLERY -->
+        <div class="photo p1">
 
-<div class="gallery">
+            <div class="pin"></div>
 
-    <!-- PHOTO 1 -->
+            <img src="1.jpg">
 
-    <div class="photo"
-    style="
-    top:180px;
-    left:5%;
-    transform:rotate(-8deg);
-    ">
+            <div class="caption">
 
-        <div class="pin"></div>
+                Beautiful ✨
 
-        <img src="1.jpg">
+            </div>
 
-        <div class="caption">
-            Beautiful ✨
         </div>
 
-    </div>
+        <!-- PHOTO 2 -->
 
-    <!-- PHOTO 2 -->
+        <div class="photo p2">
 
-    <div class="photo"
-    style="
-    top:260px;
-    left:28%;
-    transform:rotate(5deg);
-    ">
+            <div class="pin"></div>
 
-        <div class="pin"></div>
+            <img src="2.jpg">
 
-        <img src="2.jpg">
+            <div class="caption">
 
-        <div class="caption">
-            Memories 🌸
+                Memories 🌸
+
+            </div>
+
         </div>
 
-    </div>
+        <!-- PHOTO 3 -->
 
-    <!-- PHOTO 3 -->
+        <div class="photo p3">
 
-    <div class="photo"
-    style="
-    top:170px;
-    right:28%;
-    transform:rotate(-6deg);
-    ">
+            <div class="pin"></div>
 
-        <div class="pin"></div>
+            <img src="3.jpg">
 
-        <img src="3.jpg">
+            <div class="caption">
 
-        <div class="caption">
-            Smile 💖
+                Smile 💖
+
+            </div>
+
         </div>
 
-    </div>
+        <!-- PHOTO 4 -->
 
-    <!-- PHOTO 4 -->
+        <div class="photo p4">
 
-    <div class="photo"
-    style="
-    top:270px;
-    right:5%;
-    transform:rotate(7deg);
-    ">
+            <div class="pin"></div>
 
-        <div class="pin"></div>
+            <img src="4.jpg">
 
-        <img src="4.jpg">
+            <div class="caption">
 
-        <div class="caption">
-            Forever ✨
+                Forever ✨
+
+            </div>
+
+        </div>
+
+        <!-- PHOTO 5 -->
+
+        <div class="photo p5">
+
+            <div class="pin"></div>
+
+            <img src="5.jpg">
+
+            <div class="caption">
+
+                My Favorite 💕
+
+            </div>
+
         </div>
 
     </div>
@@ -510,16 +551,11 @@ canvas{
 
 <script>
 
-/* MOBILE */
-
-const isMobile =
-window.innerWidth < 768;
-
 /* INTRO */
 
 const intro =
 document.getElementById(
-"intro-screen"
+"intro"
 );
 
 intro.addEventListener(
@@ -535,8 +571,6 @@ intro.addEventListener(
 
     },1000);
 
-    /* PLAY MUSIC */
-
     const music =
     document.getElementById(
     "music"
@@ -549,12 +583,12 @@ intro.addEventListener(
 },
 { once:true });
 
-/* PHOTO ZOOM IMPROVED */
+/* PHOTO ZOOM */
 
 const photos =
 document.querySelectorAll(".photo");
 
-let currentPhoto = null;
+let current = null;
 
 photos.forEach(photo=>{
 
@@ -564,50 +598,44 @@ photos.forEach(photo=>{
 
         e.stopPropagation();
 
-        /* nếu bấm lại ảnh đang mở */
-
-        if(currentPhoto === photo){
+        if(current === photo){
 
             photo.classList.remove(
             "active"
             );
 
-            currentPhoto = null;
+            current = null;
 
             return;
         }
 
-        /* đóng ảnh cũ */
+        if(current){
 
-        if(currentPhoto){
-
-            currentPhoto.classList.remove(
+            current.classList.remove(
             "active"
             );
 
         }
 
-        /* mở ảnh mới */
-
         photo.classList.add(
         "active"
         );
 
-        currentPhoto = photo;
+        current = photo;
 
     });
 
 });
 
-/* STAR BACKGROUND */
+/* STARS */
 
 const canvas =
-document.getElementById("stars");
+document.getElementById(
+"stars"
+);
 
 const ctx =
-canvas.getContext("2d", {
-    alpha:false
-});
+canvas.getContext("2d");
 
 canvas.width =
 innerWidth;
@@ -615,23 +643,14 @@ innerWidth;
 canvas.height =
 innerHeight;
 
-/* FPS */
-
-let lastTime = 0;
-
-const fps = 60;
-
-const interval =
-1000 / fps;
-
-/* STAR COUNT */
-
-const starCount =
-isMobile ? 45 : 140;
-
 const stars = [];
 
-for(let i=0;i<starCount;i++){
+const count =
+window.innerWidth < 768
+? 70
+: 140;
+
+for(let i=0;i<count;i++){
 
     stars.push({
 
@@ -642,33 +661,20 @@ for(let i=0;i<starCount;i++){
         Math.random()*canvas.height,
 
         r:
-        Math.random()*1.5 + 0.3,
-
-        /* STAR SPEED */
+        Math.random()*2,
 
         s:
-        Math.random()*0.8 + 0.3
+        Math.random()*1.5 + 0.6
 
     });
 
 }
 
-/* ANIMATION */
-
-function animateStars(time){
+function animate(){
 
     requestAnimationFrame(
-    animateStars
+    animate
     );
-
-    const delta =
-    time - lastTime;
-
-    if(delta < interval)
-    return;
-
-    lastTime =
-    time - (delta % interval);
 
     ctx.clearRect(
     0,
@@ -677,22 +683,16 @@ function animateStars(time){
     canvas.height
     );
 
-    for(let i=0;i<stars.length;i++){
-
-        const star =
-        stars[i];
+    for(let star of stars){
 
         ctx.beginPath();
 
         ctx.arc(
-
-            star.x,
-            star.y,
-            star.r,
-
-            0,
-            Math.PI * 2
-
+        star.x,
+        star.y,
+        star.r,
+        0,
+        Math.PI*2
         );
 
         ctx.fillStyle =
@@ -708,7 +708,7 @@ function animateStars(time){
             star.y = 0;
 
             star.x =
-            Math.random() *
+            Math.random()*
             canvas.width;
 
         }
@@ -717,9 +717,7 @@ function animateStars(time){
 
 }
 
-requestAnimationFrame(
-animateStars
-);
+animate();
 
 /* RESIZE */
 
