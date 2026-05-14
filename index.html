@@ -138,8 +138,8 @@ canvas{
     0 8px 20px rgba(0,0,0,0.35);
 
     transition:
-    transform 0.5s,
-    box-shadow 0.5s;
+    transform 0.4s,
+    box-shadow 0.4s;
 
     animation:
     float 4s ease-in-out infinite;
@@ -262,10 +262,10 @@ canvas{
 
     transform:
     translate(-50%,-50%)
-    scale(1.25)
+    scale(1.2)
     rotate(0deg) !important;
 
-    z-index:999;
+    z-index:100;
 
     animation:none;
 
@@ -549,10 +549,12 @@ intro.addEventListener(
 },
 { once:true });
 
-/* PHOTO ZOOM */
+/* PHOTO ZOOM IMPROVED */
 
 const photos =
 document.querySelectorAll(".photo");
+
+let currentPhoto = null;
 
 photos.forEach(photo=>{
 
@@ -562,35 +564,36 @@ photos.forEach(photo=>{
 
         e.stopPropagation();
 
-        if(photo.classList.contains("active")){
+        /* nếu bấm lại ảnh đang mở */
 
-            photo.classList.remove("active");
+        if(currentPhoto === photo){
 
-        }else{
+            photo.classList.remove(
+            "active"
+            );
 
-            photos.forEach(p=>{
+            currentPhoto = null;
 
-                p.classList.remove("active");
+            return;
+        }
 
-            });
+        /* đóng ảnh cũ */
 
-            photo.classList.add("active");
+        if(currentPhoto){
+
+            currentPhoto.classList.remove(
+            "active"
+            );
 
         }
 
-    });
+        /* mở ảnh mới */
 
-});
+        photo.classList.add(
+        "active"
+        );
 
-/* CLICK OUTSIDE */
-
-window.addEventListener(
-"click",
-()=>{
-
-    photos.forEach(photo=>{
-
-        photo.classList.remove("active");
+        currentPhoto = photo;
 
     });
 
@@ -641,8 +644,10 @@ for(let i=0;i<starCount;i++){
         r:
         Math.random()*1.5 + 0.3,
 
+        /* STAR SPEED */
+
         s:
-        Math.random()*1.2 + 0.4
+        Math.random()*0.8 + 0.3
 
     });
 
